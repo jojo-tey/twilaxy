@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import AppRouter from 'components/Router';
 import {authService} from 'fbase';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faHeart} from "@fortawesome/free-regular-svg-icons";
 
 function App() {
   
@@ -38,7 +40,7 @@ function App() {
   return (
   <>
   {init ? <AppRouter refreshUser={refreshUser}  isLoggedIn={Boolean(userObj)} userObj={userObj} /> : ("Initializing..")}
-  <footer>&copy; Twilaxy {new Date().getFullYear()}</footer>
+  <footer className="footer">&copy; Twilaxy  {new Date().getFullYear()} - made with  <FontAwesomeIcon icon={faHeart} color="crimson" /></footer>
   </>
   );
   }
