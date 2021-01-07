@@ -6,20 +6,38 @@ function App() {
   
   // check if user is logged in trough firebase auth service and login session initialize
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
+  
     useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      // logged in if user Obj exist
       if(user){
-        setIsLoggedIn(true);
+        setUserObj({
+          // filtering data for rerendering (original data is too big)
+          displayName:user.displayName,
+          uid:user.uid,
+          updateProfile: (args) => user.updateProfile(args)
+        });
       } else {
-        setIsLoggedIn(false);
-      }
+        setUserObj(null);
+        }
       setInit(true);
     });
   }, []);
+
+  // set new displayname when profile changed
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName:user.displayName,
+      uid:user.uid,
+      updateProfile: (args) => user.updateProfile(args)
+    });
+  }
+
   return (
   <>
-  {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing.."}
+  {init ? <AppRouter refreshUser={refreshUser}  isLoggedIn={Boolean(userObj)} userObj={userObj} /> : ("Initializing..")}
   <footer>&copy; Twilaxy {new Date().getFullYear()}</footer>
   </>
   );
