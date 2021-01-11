@@ -63,7 +63,7 @@ const AuthForm = () => {
 
     {error && <span className="authError">{error}</span>}
     </form>
-    <span onClick={toggleAccount} className="authSwitch">{newAccount ?   "Sign in" : "Create Account"}</span>
+    <span onClick={toggleAccount} className="authSwitch">{newAccount ?  "Sign in" : "Create Account"}</span>
     </>)
 }
 export default AuthForm;
