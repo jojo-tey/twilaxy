@@ -3,12 +3,13 @@ import React, { useState }  from "react";
 import { useHistory } from "react-router-dom";
 
 export default ({ refreshUser, userObj }) => {
+
   const history = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName)
   // Redirect to home after logout
   const onLogOutClick = () => {
     authService.signOut();
-    history.push("/")
+    history.push("/");
   };
 
   const onChange = (event) => {
@@ -39,12 +40,14 @@ export default ({ refreshUser, userObj }) => {
   // })
 
 return (
-<>
-<form onSubmit={onSubmit}>
-  <input onChange={onChange} type="text" palceholder="Display name" value={newDisplayName} />
-  <input type="submit" value="Update Profile" />
+
+<div className="container">
+<form onSubmit={onSubmit} className="profileForm">
+  <input onChange={onChange} type="text" palceholder="Display name" value={newDisplayName} autoFocus className="formInput"/>
+  <input type="submit" value="Update Profile" className="formBtn" style={{ marginTop:10}}/>
 </form>
-<button onClick={onLogOutClick}>Log Out</button>
-</>
+<span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>Log Out</span>
+</div>
+
 );
 };
